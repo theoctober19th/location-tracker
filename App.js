@@ -13,34 +13,38 @@ import TrackCreateScreen from '@screens/TrackCreateScreen';
 import AccountScreen from '@screens/AccountScreen';
 import AuthLoadingScreen from '@screens/AuthLoadingScreen';
 
+const AuthNavigator = createStackNavigator(
+  {
+    Login: {
+      screen: LoginScreen,
+    },
+    SignUp: SignUpScreen
+  },
+  {
+    initialRouteName: 'Login'
+  }
+);
+
+const TracksNavigator = createStackNavigator(
+    {
+      TrackList: TrackListScreen,
+      TrackDetail: TrackDetailScreen
+    }
+);
+
+const MainNavigator = createBottomTabNavigator(
+  {
+    tracksNavigator: TracksNavigator,
+    TrackCreate: TrackCreateScreen,
+    Account: AccountScreen,
+  }
+);
+
 const rootNavigator = createSwitchNavigator(
   {
     Loading: AuthLoadingScreen,
-    authNavigator: createStackNavigator(
-      {
-        Login: LoginScreen,
-        SignUp: SignUpScreen
-      },
-      {
-        headerMode: 'none',
-        initialRouteName: 'Login'
-        // navigationOptions:{
-        //   headerShown: false
-        // }
-      }
-    ),
-    mainNavigator: createBottomTabNavigator(
-      {
-        tracksNavigator: createStackNavigator(
-            {
-              TrackList: TrackListScreen,
-              TrackDetail: TrackDetailScreen
-            }
-        ),
-        TrackCreate: TrackCreateScreen,
-        Account: AccountScreen,
-      }
-    )
+    authNavigator: AuthNavigator,
+    mainNavigator: MainNavigator,
   },
   {
     initialRouteName: 'Loading'

@@ -10,16 +10,16 @@ import colors from '@assets/color';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const NextArrowButton = ({handleNextButton}) => {
+const RoundButton = ({onPress, iconName}) => {
 
     return(
         <View style={styles.container}>
           <TouchableHighlight
             style={[styles.button]}
-            onPress={handleNextButton}
+            onPress={onPress}
           >
             <Icon
-              name= 'angle-right'
+              name= {iconName}
               color= {colors.green01}
               size={32}
               style={styles.icon}
@@ -31,10 +31,7 @@ const NextArrowButton = ({handleNextButton}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'flex-end',
-    bottom: 20,
-    paddingTop: 0
+    margin: 10
   },
   button:{
     alignItems: 'center',
@@ -50,4 +47,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NextArrowButton;
+export default RoundButton;

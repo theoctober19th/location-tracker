@@ -1,4 +1,6 @@
 import React, {Component, useState} from 'react';
+import { GoogleSignin, GoogleSigninButton, statusCodes, } from '@react-native-community/google-signin';
+
 import {
   StyleSheet,
   View,
@@ -14,7 +16,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-community/async-storage';
 import backend from '@api/tnbackend';
 
-import NextArrowButton from '@components/NextArrowButton'
+import RoundButton from '@components/RoundButton'
 import InputField from '@components/InputField'
 
 import colors from '@assets/color';
@@ -44,7 +46,7 @@ export default SignUpScreen = ({navigation}) => {
         if(response.data.key){
           setSpinnerActive(false);
           await AsyncStorage.setItem('signedIn', 'true')
-          navigation.navigate('Login');
+          navigation.goBack();
         }else{
           Alert.alert('Error', 'Credentials do not match', [{text: 'Okay', onPress: ()=> setSpinnerActive(false)}]);
         }
@@ -60,6 +62,32 @@ export default SignUpScreen = ({navigation}) => {
       }
     }
   }
+
+  _signInFacebook = async () => {
+    console.log('Facebook Tapped');
+  }
+
+  _signInGoogle = async () => {
+    GoogleSignin.configure();
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      setGoogleUserInfo(userInfo);
+      console.log(userInfo);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  }
+
+
 
     return(
         <KeyboardAvoidingView
@@ -117,11 +145,24 @@ export default SignUpScreen = ({navigation}) => {
                 <Text style={styles.labelText}>Already have an account? Click here to Login!</Text>
               </TouchableOpacity>
 
+              <View style={styles.socialMediaButtonWrappers}>
+                <RoundButton
+                  onPress={_signInGoogle}
+                  iconName='google'
+                />
+
+                <RoundButton
+                  onPress={_signInFacebook}
+                  iconName='facebook'
+                />
+              </View>
+
             </ScrollView>
             <View style={styles.nextArrowWrapper}>
-              <NextArrowButton
+              <RoundButton
                 style={styles.nextArrowButton}
-                handleNextButton={_onNextButtonPressed}
+                onPress={_onNextButtonPressed}
+                iconName='angle-right'
               />
             </View>
             < Spinner visible={spinnerActive}/>
@@ -133,13 +174,20 @@ export default SignUpScreen = ({navigation}) => {
 
 };
 
+SignUpScreen.navigationOptions = {
+  headerTintColor: 'white',
+  headerStyle: {
+    backgroundColor: colors.green01
+  },
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.green01
   },
   scrollViewWrapper:{
-    marginTop: 70,
+    marginTop: 10,
     flex: 1,
   },
   avoidView:{
@@ -151,20 +199,27 @@ const styles = StyleSheet.create({
   loginText:{
     fontSize: 28,
     color: colors.white,
-    fontWeight: '300',
+    fontWeight: '400',
     marginBottom: 40
   },
   scrollView:{
-    flex:1,
+    flex: 1,
   },
   nextArrowButton:{
     flex: 1
   },
   nextArrowWrapper:{
-    marginBottom: 50
+    marginBottom: 20,
+    alignSelf: 'flex-end'
   },
   labelText:{
     color: colors.white,
     fontSize: 14
-  }
+  },
+  socialMediaButtonWrappers:{
+    marginTop: 60,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 });

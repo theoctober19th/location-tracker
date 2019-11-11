@@ -1,4 +1,5 @@
 import React, {Component, useState} from 'react';
+import { GoogleSignin, GoogleSigninButton, statusCodes, } from '@react-native-community/google-signin';
 
 import backend from '@api/tnbackend'
 import {
@@ -15,7 +16,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import NextArrowButton from '@components/NextArrowButton'
+import RoundButton from '@components/RoundButton'
 
 import colors from '@assets/color';
 import InputField from '@components/InputField'
@@ -25,6 +26,8 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [spinnerActive, setSpinnerActive] = useState(false);
+  const [isSigninInProgress, setSignInProgress] = useState(false);
+  const [googleUserInfo, setGoogleUserInfo] = useState(null);
 
   _onNextButtonPressed = async () => {
     setSpinnerActive(true);
@@ -54,7 +57,29 @@ const LoginScreen = ({navigation}) => {
     _onNextButtonPressed();
   }
 
+  _signInFacebook = async () => {
+    console.log('Facebook Tapped');
+  }
 
+  _signInGoogle = async () => {
+    GoogleSignin.configure();
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      setGoogleUserInfo(userInfo);
+      console.log(userInfo);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  }
 
     return(
         <KeyboardAvoidingView style={[styles.container, styles.avoidView]} keyboardVerticalOffset={-500} behavior='padding'>
@@ -84,15 +109,27 @@ const LoginScreen = ({navigation}) => {
 
               <TouchableOpacity
                 onPress = {() => navigation.navigate('SignUp')}
+                style={styles.loginRedirectText}
               >
                 <Text style={styles.labelText}>New User? Click here to register!</Text>
               </TouchableOpacity>
 
+              <View style={styles.socialMediaButtonWrappers}>
+                <RoundButton
+                  onPress={_signInGoogle}
+                  iconName='google'
+                />
+
+                <RoundButton
+                  onPress={_signInFacebook}
+                  iconName='facebook'
+                />
+              </View>
             </ScrollView>
             <View style={styles.nextArrowWrapper}>
-              <NextArrowButton
-                style={styles.nextArrowButton}
-                handleNextButton={_onNextButtonPressed}
+              <RoundButton
+                onPress={_onNextButtonPressed}
+                iconName='angle-right'
               />
             </View>
           </View>
@@ -102,10 +139,11 @@ const LoginScreen = ({navigation}) => {
           />
         </KeyboardAvoidingView>
     );
-
-
-
 };
+
+LoginScreen.navigationOptions = {
+  header: null
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -113,7 +151,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green01
   },
   scrollViewWrapper:{
-    marginTop: 70,
+    marginTop: 100,
     flex: 1,
   },
   avoidView:{
@@ -125,7 +163,7 @@ const styles = StyleSheet.create({
   loginText:{
     fontSize: 28,
     color: colors.white,
-    fontWeight: '300',
+    fontWeight: '400',
     marginBottom: 40
   },
   scrollView:{
@@ -135,7 +173,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   nextArrowWrapper:{
-    marginBottom: 50
+    marginBottom: 20,
+    alignItems: 'flex-end'
   },
   labelText:{
     color: colors.white,
@@ -145,7 +184,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     top: 300
-  }
+  },
+  socialMediaButtonWrappers:{
+    marginTop: 60,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  loginRedirectText:{
+  },
 });
 
 export default LoginScreen;
