@@ -13,6 +13,8 @@ import TrackCreateScreen from '@screens/TrackCreateScreen';
 import AccountScreen from '@screens/AccountScreen';
 import AuthLoadingScreen from '@screens/AuthLoadingScreen';
 
+import {Provider as AuthProvider} from '@context/AuthContext';
+
 const AuthNavigator = createStackNavigator(
   {
     Login: {
@@ -34,8 +36,10 @@ const TracksNavigator = createStackNavigator(
 
 const MainNavigator = createBottomTabNavigator(
   {
-    tracksNavigator: TracksNavigator,
-    TrackCreate: TrackCreateScreen,
+    Treasures: {
+      screen: TracksNavigator,
+    },
+    Rewards: TrackCreateScreen,
     Account: AccountScreen,
   }
 );
@@ -51,4 +55,12 @@ const rootNavigator = createSwitchNavigator(
   }
 );
 
-export default createAppContainer(rootNavigator);
+const App =  createAppContainer(rootNavigator);
+
+export default () => {
+  return (
+    <AuthProvider>
+       <App />
+    </AuthProvider>
+  );
+}

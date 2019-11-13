@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "502502345652",
+    "firebase_url": "https://treasurenepalncit.firebaseio.com",
+    "project_id": "treasurenepalncit",
+    "storage_bucket": "treasurenepalncit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502502345652:android:e69d9d9ed006159880c0e1",
+        "android_client_info": {
+          "package_name": "com.locationtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502502345652-cma7t1lg3lpog87v6rvqutiam94g5uou.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.locationtracker",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "502502345652-jssj5hsf4d7r3bp97heuur9jv2njbj42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOTyUL-qKmsL3nz2nEqES39muYQnWLyZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502502345652-jssj5hsf4d7r3bp97heuur9jv2njbj42.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "502502345652-58a9a4lm8d07mrh7kds1p4c51bau7556.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.LocationTracker"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

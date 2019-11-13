@@ -1,7 +1,5 @@
-import React, {Component, useState} from 'react';
-import { GoogleSignin, GoogleSigninButton, statusCodes, } from '@react-native-community/google-signin';
+import React, {Component, useState, useContext} from 'react';
 
-import backend from '@api/tnbackend'
 import {
   StyleSheet,
   View,
@@ -12,9 +10,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+// Keystore location /Users/bikalpa/Documents/Lab/ReactNative/LocationTracker/android/app/debug.keystore
+
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Spinner from 'react-native-loading-spinner-overlay';
+import {Context as AuthContext} from '@context/AuthContext';
 
 import RoundButton from '@components/RoundButton'
 
@@ -25,61 +26,20 @@ const LoginScreen = ({navigation}) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [spinnerActive, setSpinnerActive] = useState(false);
   const [isSigninInProgress, setSignInProgress] = useState(false);
-  const [googleUserInfo, setGoogleUserInfo] = useState(null);
 
-  _onNextButtonPressed = async () => {
-    setSpinnerActive(true);
-    try{
-      const response = await backend.post('/login/', {
-          username: email,
-          password: password
-      });
-      if(response.data.key){
-        setSpinnerActive(false);
-        await AsyncStorage.setItem('signedIn', 'true')
-        navigation.navigate('mainNavigator');
-      }else{
-        Alert.alert('Error', 'Credentials do not match', [{text: 'Okay', onPress: ()=> setSpinnerActive(false)}]);
-      }
-    }catch(error){
-      try{if(error.response.data.non_field_errors[0]){
-        Alert.alert('Error', error.response.data.non_field_errors[0], [{text: 'Okay', onPress: ()=> setSpinnerActive(false)}]);
-      }}catch(err){
-        console.log(err);
-      }
-    }finally{
-    }
+  const onSuccess = () => {
+    AsyncStorage.setItem('signedIn', 'true');
+    navigation.navigate('Account');
   }
 
-  const NextButtonPressed = () => {
-    _onNextButtonPressed();
+  const onFailure = (message) => {
+  //  Alert.alert('Error', message.toString(), [{text: 'Okay', onPress: ()=> setSignInProgress(false)}])
+  console.log(message);
+  setSignInProgress(false);
   }
 
-  _signInFacebook = async () => {
-    console.log('Facebook Tapped');
-  }
-
-  _signInGoogle = async () => {
-    GoogleSignin.configure();
-    try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      setGoogleUserInfo(userInfo);
-      console.log(userInfo);
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
-      } else {
-        // some other error happened
-      }
-    }
-  }
+  const {state, googleLogin, facebookLogin, emailLogin} = useContext(AuthContext);
 
     return(
         <KeyboardAvoidingView style={[styles.container, styles.avoidView]} keyboardVerticalOffset={-500} behavior='padding'>
@@ -116,25 +76,34 @@ const LoginScreen = ({navigation}) => {
 
               <View style={styles.socialMediaButtonWrappers}>
                 <RoundButton
-                  onPress={_signInGoogle}
+                  onPress={() => {
+                    setSignInProgress(true);
+                    googleLogin(onSuccess, onFailure);
+                  }}
                   iconName='google'
                 />
 
                 <RoundButton
-                  onPress={_signInFacebook}
+                  onPress={() => {
+                    setSignInProgress(true);
+                    facebookLogin(onSuccess, onFailure);
+                  }}
                   iconName='facebook'
                 />
               </View>
             </ScrollView>
             <View style={styles.nextArrowWrapper}>
               <RoundButton
-                onPress={_onNextButtonPressed}
+                onPress={() => {
+                  setSignInProgress(true);
+                  emailLogin(email, password, onSuccess, onFailure)
+                }}
                 iconName='angle-right'
               />
             </View>
           </View>
           <Spinner
-            visible={spinnerActive}
+            visible={isSigninInProgress}
 
           />
         </KeyboardAvoidingView>

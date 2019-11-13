@@ -31,6 +31,7 @@
 		866868D923797FD900B5F2DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 866868D623797FD900B5F2DB /* GoogleService-Info.plist */; };
 		866868DA23797FD900B5F2DB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 866868D623797FD900B5F2DB /* GoogleService-Info.plist */; };
 		86A6269C3F3B415A9313DAB3 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B311151062641EA9A35746B /* Entypo.ttf */; };
+		86AC36CC237C3EA100E5FAC8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86AC36CB237C3EA100E5FAC8 /* Bolts.framework */; };
 		98B794E5E4494E879C9EE5C9 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1179D47AD765469192065887 /* Ionicons.ttf */; };
 		A92111687E1F484A99F632A9 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 791B5828A0434D01A8EEF835 /* EvilIcons.ttf */; };
 		B3733159B66944068629C58C /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65C8C1CE52F54981AA6FCA19 /* FontAwesome.ttf */; };
@@ -91,6 +92,10 @@
 		791B5828A0434D01A8EEF835 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		815E822C9205477E9130ABBE /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		866868D623797FD900B5F2DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		86AC36CB237C3EA100E5FAC8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		86AC36CD237C3EAA00E5FAC8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		86AC36CF237C3EBD00E5FAC8 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		86AC36D1237C3EC900E5FAC8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		8E0E943CA5504F4B900FC934 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		8E7F95139F8F435CB43D4DC3 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		91D1EE96D5184E8881526B6F /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -120,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D84F6434F74B20519982BB79 /* libPods-LocationTracker.a in Frameworks */,
+				86AC36CC237C3EA100E5FAC8 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +183,10 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				86AC36D1237C3EC900E5FAC8 /* FBSDKCoreKit.framework */,
+				86AC36CF237C3EBD00E5FAC8 /* FBSDKShareKit.framework */,
+				86AC36CD237C3EAA00E5FAC8 /* FBSDKLoginKit.framework */,
+				86AC36CB237C3EA100E5FAC8 /* Bolts.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				D1CE19E2A763955B0C46E7E3 /* libPods-LocationTracker.a */,
@@ -603,6 +613,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LocationTracker/Pods-LocationTracker-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
@@ -623,6 +634,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
@@ -761,6 +773,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../../../FacebookSDK\"",
+					"$(inherited)",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = LocationTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -780,6 +800,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../../../FacebookSDK\"",
+					"$(inherited)",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleAppMeasurement/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleSignIn/Frameworks\"",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = LocationTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

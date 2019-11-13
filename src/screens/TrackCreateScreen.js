@@ -4,11 +4,12 @@ import {
   View,
   Text,
 } from 'react-native';
+import MapComponent from '@components/MapComponent';
 
 const TrackCreateScreen = () => {
   return(
       <View style={styles.global_container}>
-        <Text> TrackCreateScreen </Text>
+        <MapComponent />
       </View>
   );
 };
