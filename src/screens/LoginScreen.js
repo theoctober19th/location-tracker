@@ -28,15 +28,21 @@ const LoginScreen = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [isSigninInProgress, setSignInProgress] = useState(false);
 
+  const _onNextButtonPressed = async () => {
+    if(email === '' || password === ''){
+      onFailure('Fields cannot be blank.')
+    }else{
+      emailLogin(email, password, onSuccess, onFailure);
+    }
+  }
+
   const onSuccess = () => {
     AsyncStorage.setItem('signedIn', 'true');
     navigation.navigate('Account');
   }
 
   const onFailure = (message) => {
-  //  Alert.alert('Error', message.toString(), [{text: 'Okay', onPress: ()=> setSignInProgress(false)}])
-  console.log(message);
-  setSignInProgress(false);
+    Alert.alert('Error', message.toString(), [{text: 'Okay', onPress: ()=> setSignInProgress(false)}])
   }
 
   const {state, googleLogin, facebookLogin, emailLogin} = useContext(AuthContext);
@@ -96,7 +102,7 @@ const LoginScreen = ({navigation}) => {
               <RoundButton
                 onPress={() => {
                   setSignInProgress(true);
-                  emailLogin(email, password, onSuccess, onFailure)
+                  _onNextButtonPressed();
                 }}
                 iconName='angle-right'
               />

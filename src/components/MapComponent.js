@@ -1,25 +1,47 @@
-import React, {Component} from 'react';
+//AIzaSyAlDlqn2Xr3tRUKkf5CFr-a5Vglc1TL1N4
+import React, {Component, useContext} from 'react';
 import {
   StyleSheet,
   View,
   Text,
 } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Polyline, Circle, Marker} from 'react-native-maps';
+import {Context as LocationContext} from '@context/LocationContext';
 
-const MapComponent = ({}) => {
+const points = [
+  {latitude:27.670012, longitude:85.323687},
+  {latitude:27.669194, longitude:85.323340},
+  {latitude:27.668889, longitude:85.324020},
+  {latitude:27.670012, longitude:85.323687},
+]
+
+const MapComponent = ({latitude, longitude}) => {
+  const {state} = useContext(LocationContext);
+
   return(
       <View style={styles.global_container}>
         <MapView
+          provider={PROVIDER_GOOGLE}
           style={styles.map}
+          showsUserLocation
           initialRegion={
             {
-              latitude: 27.668546,
-              longitude: 85.324044,
+              latitude: latitude,
+              longitude: longitude,
               latitudeDelta: 0.01,
               longitudeDelta: 0.01
             }
           }
-        />
+          region={
+            {
+              latitude: state.currentLocation.coords.latitude,
+              longitude: state.currentLocation.coords.longitude,
+              latitudeDelta: 0.01,
+              longitudeDelta: 0.01
+            }
+          }
+        >
+        </MapView>
       </View>
   );
 };

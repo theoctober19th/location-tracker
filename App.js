@@ -14,6 +14,7 @@ import AccountScreen from '@screens/AccountScreen';
 import AuthLoadingScreen from '@screens/AuthLoadingScreen';
 
 import {Provider as AuthProvider} from '@context/AuthContext';
+import {Provider as LocationProvider} from '@context/LocationContext';
 
 const AuthNavigator = createStackNavigator(
   {
@@ -60,7 +61,9 @@ const App =  createAppContainer(rootNavigator);
 export default () => {
   return (
     <AuthProvider>
-       <App />
+      <LocationProvider>
+        <App />
+      </LocationProvider>
     </AuthProvider>
   );
 }

@@ -10,17 +10,17 @@ import colors from '@assets/color';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const RoundButton = ({onPress, iconName}) => {
+const RoundButton = ({onPress, iconName, backgroundColor, iconColor}) => {
 
     return(
         <View style={styles.container}>
           <TouchableHighlight
-            style={[styles.button]}
+            style={[styles.button, {backgroundColor}]}
             onPress={onPress}
           >
             <Icon
               name= {iconName}
-              color= {colors.green01}
+              color= {iconColor}
               size={32}
               style={styles.icon}
             />
@@ -31,7 +31,10 @@ const RoundButton = ({onPress, iconName}) => {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10
+    position:'absolute',
+    bottom: 0,
+    right: 0,
+    margin: 10,
   },
   button:{
     alignItems: 'center',
@@ -39,7 +42,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: 60,
     height: 60,
-    backgroundColor: colors.white
   },
   icon: {
     marginRight: -2,

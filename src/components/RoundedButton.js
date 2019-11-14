@@ -8,6 +8,7 @@ import {
 
 import colors from '@assets/color';
 import Icon from 'react-native-vector-icons/FontAwesome';
+Icon.loadFont();
 
 const RoundedButton = ({navigation, text, textColor, backgroundColor, icon, onPress }) => {
 

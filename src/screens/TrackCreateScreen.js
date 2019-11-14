@@ -9,7 +9,10 @@ import MapComponent from '@components/MapComponent';
 const TrackCreateScreen = () => {
   return(
       <View style={styles.global_container}>
-        <MapComponent />
+        <MapComponent
+          latitude={27.668510}
+          longitude={85.324069}
+        />
       </View>
   );
 };
