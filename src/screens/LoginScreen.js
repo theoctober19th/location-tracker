@@ -55,9 +55,9 @@ const LoginScreen = ({navigation}) => {
               <InputField
                 labelText='USERNAME'
                 labelTextSize={14}
-                labelTextColor={colors.white}
-                textColor={colors.white}
-                borderBottomColor={colors.white}
+                labelTextColor='black'
+                textColor='black'
+                borderBottomColor='black'
                 inputType='email-address'
                 customStyle = {{marginBottom:30}}
                 textChangeHandler = {email => setEmail(email)}
@@ -65,9 +65,9 @@ const LoginScreen = ({navigation}) => {
               <InputField
                 labelText='PASSWORD'
                 labelTextSize={14}
-                labelTextColor={colors.white}
-                textColor={colors.white}
-                borderBottomColor={colors.white}
+                labelTextColor='black'
+                textColor='black'
+                borderBottomColor='black'
                 inputType='password'
                 customStyle = {{marginBottom:30}}
                 textChangeHandler = {password => setPassword(password)}
@@ -123,7 +123,6 @@ LoginScreen.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.green01
   },
   scrollViewWrapper:{
     marginTop: 100,
@@ -137,7 +136,6 @@ const styles = StyleSheet.create({
   },
   loginText:{
     fontSize: 28,
-    color: colors.white,
     fontWeight: '400',
     marginBottom: 40
   },
@@ -152,7 +150,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end'
   },
   labelText:{
-    color: colors.white,
     fontSize: 14
   },
   spinner:{

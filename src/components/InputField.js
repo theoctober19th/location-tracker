@@ -9,23 +9,22 @@ import {
 
 import colors from '@assets/color'
 
-const InputField = (props) => {
-
-  const {
-    labelText,
-    labelTextSize,
-    labelTextColor,
-    textColor,
-    borderBottomColor,
-    inputType,
-    customStyle,
-    placeholder,
-    textChangeHandler
-  }  = props;
+const InputField = ({
+  labelText,
+  labelTextSize,
+  labelTextColor,
+  textColor,
+  borderBottomColor,
+  inputType,
+  customStyle,
+  placeholder,
+  textChangeHandler,
+  editable
+} ) => {
 
   const [isSecureInput, setSecureInput] = useState(inputType === 'password');
 
-    const color = labelTextColor || colors.white;
+    const color = labelTextColor || '#000000';
     const fontSize = labelTextSize || 14;
     const inputColor = textColor || colors.white;
     const borderBottom = borderBottomColor || 'transparent'
@@ -36,7 +35,7 @@ const InputField = (props) => {
 
     return(
         <View style={[customStyle, styles.container]}>
-          <Text style={[styles.labelText, color, fontSize]}>{labelText}</Text>
+          <Text style={[styles.labelText, {color:labelTextColor, fontSize}]}>{labelText}</Text>
 
           {inputType == 'password' ? (
             <TouchableOpacity
@@ -51,7 +50,7 @@ const InputField = (props) => {
 
           <TextInput
             style={[
-              {color: inputColor, borderBottomColor: borderBottom,},
+              {color: inputColor, borderBottomColor: borderBottom, fontSize},
               styles.inputFieldTextInput
             ]}
             secureTextEntry = {isSecureInput}
@@ -60,6 +59,7 @@ const InputField = (props) => {
             onChangeText = {textChangeHandler}
             autoCapitalize = 'none'
             autoCorrect = {false}
+            editable={editable}
           />
         </View>
     );
@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
     right: 0
   },
   showHideText:{
-    color: colors.white,
     fontWeight: '700'
   }
 });

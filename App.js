@@ -1,3 +1,5 @@
+console.disableYellowBox = true;
+
 import React from 'react';
 
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
@@ -16,6 +18,8 @@ import AuthLoadingScreen from '@screens/AuthLoadingScreen';
 import {Provider as AuthProvider} from '@context/AuthContext';
 import {Provider as LocationProvider} from '@context/LocationContext';
 
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 const AuthNavigator = createStackNavigator(
   {
     Login: {
@@ -30,18 +34,44 @@ const AuthNavigator = createStackNavigator(
 
 const TracksNavigator = createStackNavigator(
     {
-      TrackList: TrackListScreen,
-      TrackDetail: TrackDetailScreen
+      TrackList: {
+        screen: TrackListScreen,
+        navigationOptions: {
+          title: 'Tracks List'
+        }
+      },
+      TrackDetail: {
+        screen: TrackDetailScreen,
+        navigationOptions: ({navigation}) => ({
+          title: navigation.state.params.title
+        })
+      }
     }
 );
 
 const MainNavigator = createBottomTabNavigator(
   {
-    Treasures: {
+    Tracks: {
       screen: TracksNavigator,
+      navigationOptions:{
+        title: 'Tracks',
+        tabBarIcon: <Icon name='list' size={20}/>
+      }
     },
-    Rewards: TrackCreateScreen,
-    Account: AccountScreen,
+    Add: {
+      screen: TrackCreateScreen,
+      navigationOptions:{
+        title: 'Create',
+        tabBarIcon: <Icon name='plus' size={20}/>
+      }
+    },
+    Account: {
+      screen: AccountScreen,
+      navigationOptions:{
+        title: 'Account',
+        tabBarIcon: <Icon name='user-circle' size={20}/>
+      }
+    }
   }
 );
 

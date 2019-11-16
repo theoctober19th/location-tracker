@@ -6,6 +6,7 @@ import {
   Image
 } from 'react-native';
 
+
 import colors from '@assets/color'
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -19,6 +20,7 @@ const AccountScreen = ({navigation}) => {
 
   var profilePic = '';
   var name = '';
+
   if(state !== null){
     profilePic = state.profilePicture;
   }
@@ -41,12 +43,12 @@ const AccountScreen = ({navigation}) => {
         </View>
 
         <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={styles.nameText}>{name}</Text>
+          <Text style={styles.nameText}>{name === '' ? 'Hello, Bikalpa!' : name}</Text>
         </View>
 
         <View style={{flex:2}} >
           <RoundedButton
-            textColor={colors.green01}
+            textColor='black'
             icon='sign-out'
             text='Sign Out'
             backgroundColor='white'
@@ -60,7 +62,6 @@ const AccountScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   global_container: {
     flex: 1,
-    backgroundColor: colors.green01
   },
   image:{
     height: 200,
@@ -71,7 +72,6 @@ const styles = StyleSheet.create({
   nameText:{
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'white'
   }
 });
 

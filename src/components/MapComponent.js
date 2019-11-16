@@ -15,15 +15,16 @@ const points = [
   {latitude:27.670012, longitude:85.323687},
 ]
 
-const MapComponent = ({latitude, longitude}) => {
+const MapComponent = ({latitude, longitude, styleprop}) => {
   const {state} = useContext(LocationContext);
 
   return(
-      <View style={styles.global_container}>
+      <View style={styleprop}>
         <MapView
           provider={PROVIDER_GOOGLE}
-          style={styles.map}
+          style={StyleSheet.absoluteFill}
           showsUserLocation
+          followsUserLocation
           initialRegion={
             {
               latitude: latitude,
@@ -34,25 +35,22 @@ const MapComponent = ({latitude, longitude}) => {
           }
           region={
             {
-              latitude: state.currentLocation.coords.latitude,
-              longitude: state.currentLocation.coords.longitude,
+              latitude: state.currentLocation.latitude,
+              longitude: state.currentLocation.longitude,
               latitudeDelta: 0.01,
               longitudeDelta: 0.01
             }
           }
         >
+          <Polyline
+            coordinates={state.locations}
+          />
         </MapView>
       </View>
   );
 };
 
 const styles = StyleSheet.create({
-  global_container: {
-    flex: 1,
-  },
-  map:{
-    flex:1
-  }
 
 });
 
