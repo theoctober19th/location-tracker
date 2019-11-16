@@ -1,4 +1,5 @@
-# React Native Blog App
+# Location Tracker
+
 I built this application as part of the [Udemy Course](https://www.udemy.com/course/the-complete-react-native-and-redux-course/) of React Native. It allows you to keep tracks of the paths you followed in real life and allows you to save them in your device.
 
 For me, the purpose of making this application were to learn:
