@@ -15,6 +15,9 @@ The app needs a lot modifications to run off-the-box in your device. Some of the
 - Create your own Facebook app
 - Modify to include your own Facebook App ID, etc.
 
+## Credit
+I have followed this [Udemy Course](https://www.udemy.com/course/the-complete-react-native-and-redux-course/) while building this project.
+
 Happy Learning! 🤓
 
 ## Screenshots:  
